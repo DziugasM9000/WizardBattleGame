@@ -2,12 +2,28 @@ using UnityEngine;
 
 public class SpellFactory : MonoBehaviour
 {
-    const string fireballResourceLocation = "Prefabs/fireball";
+    static public SpellFactory instance;
 
-    int fireballOffset=3;
-    public void SpawnFireball(Vector3 casterLocation)
+    public void Awake()
     {
-        GameObject spell = Resources.Load<GameObject>(fireballResourceLocation);
-        Instantiate(spell,new Vector3(casterLocation.x + fireballOffset, casterLocation.y, casterLocation.z), Quaternion.identity);
+        instance = this;
+    }
+
+    public void SpawnFireball(Vector3 wizardLocation)
+    {
+        GameObject spell = Resources.Load<GameObject>(Constants.FireballPrefabLocation);
+        Instantiate(spell,new Vector3(wizardLocation.x + Constants.FireballHorizontalOffset, wizardLocation.y, wizardLocation.z), Quaternion.identity);
+    }
+
+    public void SpawnSpike(Vector3 spikeLocation)
+    {
+        GameObject spell = Resources.Load<GameObject>(Constants.SpikePrefabLocation);
+        Instantiate(spell, spikeLocation,  Quaternion.identity);
+    }
+
+    public void SpawnSpikeWarning(Vector3 spikeLocation)
+    {
+        GameObject spell = Resources.Load<GameObject>(Constants.SpikeWarningPrefabLocation);
+        Instantiate(spell, spikeLocation, Quaternion.identity);
     }
 }

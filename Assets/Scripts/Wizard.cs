@@ -2,16 +2,17 @@ using UnityEngine;
 
 public class Wizard : MonoBehaviour
 {
-    protected int maxHealth;
     protected int currentHealth;
-    
-    public void loseHealth(int damage)
+    protected int maxHealth;
+    protected int minHealth;
+
+    public void changeHealth(int amount)
     {
-        this.currentHealth -= damage;
+        currentHealth -= amount;
+        if (currentHealth < minHealth)
+            Destroy(this.gameObject);
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
     }
 
-    public void spawnFireball()
-    {
-
-    }
 }

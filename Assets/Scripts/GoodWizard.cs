@@ -2,21 +2,37 @@ using UnityEngine;
 
 public class GoodWizard : Wizard
 {
-    private int maxMana=100;
-    private int currentMana=100;
-    
+    private int currentMana;
+    private int maxMana;
+
     private void Start()
     {
-        maxHealth = 3;
-        currentHealth = maxHealth;
-        GameObject gameManager
+        currentHealth = Constants.GoodWizardMaxHealth;
+        currentMana = Constants.GoodWizardMaxMana;
+        maxMana = Constants.GoodWizardMaxMana;
     }
 
     private void Update()
     {
-        switch(Input.GetKeyDown(KeyCode.Z))
+
+
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            
+            if (currentMana > Constants.FireballManaCost)
+            {
+                SpellFactory.instance.SpawnFireball(this.gameObject.transform.position);
+                currentMana -= Constants.FireballManaCost;
+            }
+
         }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            currentMana++;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        SceneSwitcher.instance.Win();
     }
 }
